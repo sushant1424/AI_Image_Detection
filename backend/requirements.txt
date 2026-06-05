@@ -1,0 +1,32 @@
+# ========================================
+# Backend Dependencies
+# ========================================
+
+# FastAPI
+fastapi==0.115.0
+uvicorn[standard]==0.30.0
+python-multipart==0.0.9
+
+# Database
+sqlalchemy==2.0.35
+asyncpg
+alembic==1.13.2
+psycopg2-binary
+
+# Authentication
+pyjwt==2.9.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.2.0
+
+# ML / Deep Learning
+torch>=2.5.0
+torchvision>=0.20.0
+Pillow>=10.4.0
+numpy
+opencv-python-headless>=4.10.0.84
+grad-cam>=1.5.4
+
+# Utilities
+python-dotenv==1.0.1
+pydantic[email]==2.9.0
+pydantic-settings==2.5.2

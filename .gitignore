@@ -1,0 +1,40 @@
+# ========================================
+# Git Ignore
+# ========================================
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Environment
+.env
+*.env.local
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads (user content)
+uploads/
+
+# ML weights (too large for git)
+backend/app/ml/weights/*.pth
+backend/app/ml/weights/*.pt
+
+# Logs
+*.log
