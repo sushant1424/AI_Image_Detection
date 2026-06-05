@@ -23,10 +23,12 @@ export const fetchHistory = async (params = {}) => {
   const { page = 1, filter, startDate, endDate } = params;
   const queryParams = new URLSearchParams({
     page: page.toString(),
-    limit: HISTORY_PAGE_SIZE.toString(),
+    page_size: HISTORY_PAGE_SIZE.toString(),
   });
 
-  if (filter && filter !== 'ALL') queryParams.append('filter', filter);
+  if (filter && filter !== 'ALL') {
+    queryParams.append('verdict', filter);
+  }
   if (startDate) queryParams.append('start_date', startDate);
   if (endDate) queryParams.append('end_date', endDate);
 
