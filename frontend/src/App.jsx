@@ -20,6 +20,7 @@ import StatsPage from 'src/pages/StatsPage';
 import ProfilePage from 'src/pages/ProfilePage';
 import LoginPage from 'src/pages/LoginPage';
 import RegisterPage from 'src/pages/RegisterPage';
+import NotFoundPage from 'src/pages/NotFoundPage';
 
 function AppContent() {
   const dispatch = useDispatch();
@@ -76,6 +77,9 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
+        {/* Wildcard Fallback */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <ToastContainer />
     </Router>
