@@ -15,24 +15,24 @@ export const ForensicsInspector = ({ metadata }) => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           <h4 className="text-sm font-bold text-text-secondary uppercase tracking-wider">
-            Image Forensics & Metadata
+            Image Details & Properties
           </h4>
         </div>
         <Badge variant={hasExif ? 'success' : 'neutral'}>
-          {hasExif ? 'Camera EXIF Data Found' : 'Metadata Stripped/Absent'}
+          {hasExif ? 'Camera Information Available' : 'No Camera Data Found'}
         </Badge>
       </div>
 
       {/* Grid of File Info */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <div className="p-3 bg-background/50 border border-border/50 rounded-xl">
-          <div className="text-[10px] uppercase font-bold text-text-secondary">Format</div>
+          <div className="text-[10px] uppercase font-bold text-text-secondary">Image Format</div>
           <div className="text-sm font-bold text-text mt-0.5">{metadata.format || 'Unknown'}</div>
         </div>
         <div className="p-3 bg-background/50 border border-border/50 rounded-xl">
-          <div className="text-[10px] uppercase font-bold text-text-secondary">Resolution</div>
+          <div className="text-[10px] uppercase font-bold text-text-secondary">Dimensions</div>
           <div className="text-sm font-bold text-text mt-0.5">
-            {metadata.width && metadata.height ? `${metadata.width} × ${metadata.height}` : 'Unknown'}
+            {metadata.width && metadata.height ? `${metadata.width} × ${metadata.height} px` : 'Unknown'}
           </div>
         </div>
         <div className="p-3 bg-background/50 border border-border/50 rounded-xl">
@@ -45,17 +45,17 @@ export const ForensicsInspector = ({ metadata }) => {
         </div>
       </div>
 
-      {/* EXIF Table */}
+      {/* Camera Logs Table */}
       {hasExif ? (
         <div className="flex flex-col gap-2">
           <span className="text-xs font-bold text-text-secondary uppercase tracking-wider">
-            Exif Headers
+            Detailed Camera Logs
           </span>
           <div className="max-h-48 overflow-y-auto border border-border/50 rounded-xl bg-background/30 scrollbar">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="border-b border-border/50 bg-background/50">
-                  <th className="p-2.5 font-bold text-text-secondary">Tag Name</th>
+                  <th className="p-2.5 font-bold text-text-secondary">Setting Tag</th>
                   <th className="p-2.5 font-bold text-text-secondary">Value</th>
                 </tr>
               </thead>
@@ -72,8 +72,8 @@ export const ForensicsInspector = ({ metadata }) => {
         </div>
       ) : (
         <div className="text-center py-6 border border-dashed border-border/50 rounded-xl bg-background/25">
-          <p className="text-xs text-text-secondary">
-            No embedded EXIF tags found. Standard metadata might have been removed during export/compression, or this is a synthesized canvas.
+          <p className="text-xs text-text-secondary px-4 leading-relaxed">
+            No embedded camera settings found. Standard photo information might have been removed when uploading/compressing, or this is a digital drawing.
           </p>
         </div>
       )}

@@ -5,7 +5,6 @@ export const HeatmapViewer = ({ originalUrl, heatmapUrl }) => {
   const [activeTab, setActiveTab] = useState('side'); // 'side' | 'overlay'
   const [opacity, setOpacity] = useState(0.5);
 
-  // Fallback to absolute URLs if backend relative pathing is loaded
   const getFullUrl = (path) => {
     if (!path) return '';
     if (path.startsWith('http')) return path;
@@ -20,7 +19,7 @@ export const HeatmapViewer = ({ originalUrl, heatmapUrl }) => {
       {/* View Controller Tabs */}
       <div className="flex justify-between items-center pb-3 border-b border-border">
         <h4 className="text-sm font-bold text-text-secondary uppercase tracking-wider">
-          Explainability Visualization
+          Visual Highlights & Alteration Map
         </h4>
         <div className="flex gap-1.5 p-1 bg-surface-light rounded-xl border border-border">
           <button
@@ -51,7 +50,7 @@ export const HeatmapViewer = ({ originalUrl, heatmapUrl }) => {
         {activeTab === 'side' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
             <div className="flex flex-col gap-2">
-              <span className="text-xs font-bold text-text-secondary text-center">Original</span>
+              <span className="text-xs font-bold text-text-secondary text-center">Original Photo</span>
               <div className="aspect-[4/3] rounded-xl overflow-hidden border border-border bg-background">
                 <img
                   src={fullOriginal}
@@ -61,11 +60,11 @@ export const HeatmapViewer = ({ originalUrl, heatmapUrl }) => {
               </div>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="text-xs font-bold text-text-secondary text-center">Grad-CAM Heatmap</span>
+              <span className="text-xs font-bold text-text-secondary text-center">Visual Highlights Map</span>
               <div className="aspect-[4/3] rounded-xl overflow-hidden border border-border bg-background">
                 <img
                   src={fullHeatmap}
-                  alt="Grad-CAM analysis heatmap"
+                  alt="Highlights map"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -84,7 +83,7 @@ export const HeatmapViewer = ({ originalUrl, heatmapUrl }) => {
               {/* Heatmap overlay layer */}
               <img
                 src={fullHeatmap}
-                alt="Heatmap Overlay"
+                alt="Highlight Overlay"
                 className="absolute inset-0 w-full h-full object-cover transition-opacity duration-75"
                 style={{ opacity }}
               />
@@ -92,7 +91,7 @@ export const HeatmapViewer = ({ originalUrl, heatmapUrl }) => {
             
             {/* Opacity slider */}
             <div className="flex items-center gap-4 w-full px-2">
-              <span className="text-xs font-bold text-text-secondary select-none">Original</span>
+              <span className="text-xs font-bold text-text-secondary select-none">Original Photo</span>
               <input
                 type="range"
                 min="0"
@@ -102,7 +101,7 @@ export const HeatmapViewer = ({ originalUrl, heatmapUrl }) => {
                 onChange={(e) => setOpacity(parseFloat(e.target.value))}
                 className="flex-1 accent-primary h-1 bg-surface-light rounded-lg cursor-pointer border-none outline-hidden"
               />
-              <span className="text-xs font-bold text-text-secondary select-none">Heatmap</span>
+              <span className="text-xs font-bold text-text-secondary select-none">Highlight Overlay</span>
             </div>
           </div>
         )}

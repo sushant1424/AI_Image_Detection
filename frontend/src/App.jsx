@@ -21,6 +21,8 @@ import ProfilePage from 'src/pages/ProfilePage';
 import LoginPage from 'src/pages/LoginPage';
 import RegisterPage from 'src/pages/RegisterPage';
 import SharePage from 'src/pages/SharePage';
+import HowItWorksPage from 'src/pages/HowItWorksPage';
+import PricingPage from 'src/pages/PricingPage';
 import NotFoundPage from 'src/pages/NotFoundPage';
 
 function AppContent() {
@@ -53,6 +55,8 @@ function AppContent() {
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
         <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
         <Route path="/share/:id" element={<SharePage />} />
+        <Route path="/how-it-works" element={<HowItWorksPage />} />
+        <Route path="/pricing" element={<PricingPage />} />
 
         {/* Protected Routes */}
         <Route

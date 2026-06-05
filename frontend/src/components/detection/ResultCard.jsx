@@ -40,8 +40,8 @@ export const ResultCard = ({ result }) => {
           </h3>
           <p className="text-sm text-text-secondary text-center max-w-md">
             {isAI
-              ? 'Our neural network detected patterns consistent with AI generation tools.'
-              : 'No significant AI-generation artifacts were detected in this image.'}
+              ? 'Our analysis detected patterns consistent with artificial image generation tools.'
+              : 'No significant patterns of artificial generation were detected in this image.'}
           </p>
         </div>
 

@@ -15,9 +15,9 @@ export const AuthRequiredCard = () => {
         </svg>
       </div>
       <div>
-        <h3 className="text-lg font-bold text-text mb-1">Authentication Required</h3>
-        <p className="text-xs text-text-secondary leading-relaxed">
-          To perform advanced neural network scanning and view heatmaps, you must first be logged in to your account.
+        <h3 className="text-lg font-bold text-text mb-1">Sign In Required</h3>
+        <p className="text-xs text-text-secondary leading-relaxed px-2">
+          To analyze images and view details such as visual maps and photo settings, please sign in or register a free account first.
         </p>
       </div>
       <div className="flex gap-3 w-full">

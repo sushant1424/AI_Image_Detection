@@ -129,7 +129,7 @@ export const DetectPage = () => {
               <div className="flex flex-col items-center gap-4 py-10">
                 <Spinner className="w-12 h-12 text-primary" />
                 <p className="text-sm text-text-secondary animate-pulse font-medium">
-                  Running neural network analysis...
+                  Verifying image authenticity...
                 </p>
               </div>
             )}

@@ -10,6 +10,8 @@ import ThemeToggle from './ThemeToggle';
 
 const NAV_LINKS = [
   { label: 'Detect', path: ROUTES.DETECT, public: true },
+  { label: 'How It Works', path: '/how-it-works', public: true },
+  { label: 'Pricing', path: '/pricing', public: true },
   { label: 'History', path: ROUTES.HISTORY, public: false },
   { label: 'Stats', path: ROUTES.STATS, public: false },
 ];

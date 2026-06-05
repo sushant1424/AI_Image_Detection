@@ -55,7 +55,7 @@ export const StatsPage = () => {
               </svg>
             }
             title="Analytics Dashboard Empty"
-            description="Run your first image scan to view detailed metrics, classification reports, and model performance histograms."
+            description="Run your first image scan to view detailed metrics, scan counts, and verification reports."
             action={
               <Button onClick={() => navigate(ROUTES.DETECT)} size="md">
                 Scan Your First Image
@@ -76,7 +76,7 @@ export const StatsPage = () => {
             Dashboard Analytics
           </h1>
           <p className="text-sm text-text-secondary">
-            Insights on your scanned images and neural network detection performance.
+            Insights and verification metrics on your scanned images.
           </p>
         </div>
 

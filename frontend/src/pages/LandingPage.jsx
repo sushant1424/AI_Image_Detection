@@ -19,18 +19,18 @@ export const LandingPage = () => {
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
           </svg>
-          Advanced Deep Learning Detection
+          AI Image Verification
         </div>
 
         {/* Headline */}
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-[1.25] md:leading-[1.3] animate-slide-up">
           Can You Trust <br />
-          <span className="gradient-text glow-strong mt-2 block md:inline">What You See?</span>
+          <span className="gradient-text mt-2 block md:inline">What You See?</span>
         </h1>
 
         {/* Subheading */}
         <p className="text-lg md:text-xl text-text-secondary mb-12 max-w-2xl leading-relaxed animate-slide-up animation-delay-2000">
-          Instantly verify the authenticity of any image. Leverage state-of-the-art neural network analysis to spot AI generation and analyze heatmaps in seconds.
+          Instantly check if a photo is real or AI-generated. Upload any image or paste a link to verify authenticity, identify digital manipulations, and view highlighted patterns.
         </p>
 
         {/* CTA Button */}
@@ -55,9 +55,9 @@ export const LandingPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="font-bold text-lg text-text mb-1.5">Fast Analysis</h3>
+            <h3 className="font-bold text-lg text-text mb-1.5">Fast Results</h3>
             <p className="text-sm text-text-secondary leading-relaxed">
-              EfficientNet neural pipeline delivers comprehensive verification results in less than 2 seconds.
+              Our analyzer scans image features to deliver full verification results in less than two seconds.
             </p>
           </div>
         </Card>
@@ -69,9 +69,9 @@ export const LandingPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="font-bold text-lg text-text mb-1.5">Grad-CAM Heatmap</h3>
+            <h3 className="font-bold text-lg text-text mb-1.5">Highlight Map</h3>
             <p className="text-sm text-text-secondary leading-relaxed">
-              Visualize the exact pixel regions that influenced the classifier's verdict with interpretability heatmaps.
+              Visualize which areas of the uploaded image contain artificial generation signs or structural anomalies.
             </p>
           </div>
         </Card>
@@ -83,9 +83,9 @@ export const LandingPage = () => {
             </svg>
           </div>
           <div>
-            <h3 className="font-bold text-lg text-text mb-1.5">Full History</h3>
+            <h3 className="font-bold text-lg text-text mb-1.5">Safe Scan History</h3>
             <p className="text-sm text-text-secondary leading-relaxed">
-              Save your scans, filter by classification, download reports, and access history anytime.
+              Safely save your image verification history, export CSV spreadsheets, and generate PDF reports.
             </p>
           </div>
         </Card>

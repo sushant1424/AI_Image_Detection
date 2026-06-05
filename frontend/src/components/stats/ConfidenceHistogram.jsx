@@ -8,7 +8,7 @@ export const ConfidenceHistogram = ({ data = [] }) => {
   return (
     <Card className="flex flex-col gap-4 bg-surface/30 p-6 h-[320px] md:col-span-3">
       <h3 className="text-sm font-bold text-text-secondary uppercase tracking-wider">
-        Model Confidence Distribution
+        Verification Confidence Distribution
       </h3>
 
       {total === 0 ? (

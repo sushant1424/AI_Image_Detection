@@ -74,7 +74,7 @@ export const SharePage = () => {
           <span className="text-[10px] font-bold text-primary uppercase tracking-widest bg-primary/10 px-2.5 py-1 rounded-full border border-primary/25">
             Shared Report
           </span>
-          <h1 className="text-3xl font-extrabold text-text mt-3 mb-1">DeepGuard Forensics Audit</h1>
+          <h1 className="text-3xl font-extrabold text-text mt-3 mb-1">DeepGuard Image Audit</h1>
           <p className="text-xs text-text-secondary">Scan ID: {id}</p>
         </div>
 
@@ -85,7 +85,7 @@ export const SharePage = () => {
             {/* Feedback Loops widget */}
             <Card className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 w-full bg-surface-light border border-border/80 rounded-2xl">
               <span className="text-xs font-semibold text-text-secondary">
-                Was this neural network classification accurate?
+                Was this image verification accurate?
               </span>
               <div className="flex items-center gap-2">
                 <Button
