@@ -53,6 +53,35 @@ export const RegisterForm = () => {
     }
   };
 
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    const val = formData[name];
+    setErrors((prev) => {
+      const copy = { ...prev };
+      if (name === 'name') {
+        if (!val) copy.name = 'Full name is required';
+        else if (val.length < 2) copy.name = 'Name must be at least 2 characters';
+        else delete copy.name;
+      }
+      if (name === 'email') {
+        if (!val) copy.email = 'Email address is required';
+        else if (!/\S+@\S+\.\S+/.test(val)) copy.email = 'Please enter a valid email address';
+        else delete copy.email;
+      }
+      if (name === 'password') {
+        if (!val) copy.password = 'Password is required';
+        else if (val.length < 6) copy.password = 'Password must be at least 6 characters';
+        else delete copy.password;
+      }
+      if (name === 'confirmPassword') {
+        if (!val) copy.confirmPassword = 'Please confirm your password';
+        else if (val !== formData.password) copy.confirmPassword = 'Passwords do not match';
+        else delete copy.confirmPassword;
+      }
+      return copy;
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
@@ -65,7 +94,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5 w-full">
       <Input
         label="Full Name"
         type="text"
@@ -73,8 +102,8 @@ export const RegisterForm = () => {
         placeholder="John Doe"
         value={formData.name}
         onChange={handleChange}
+        onBlur={handleBlur}
         error={errors.name}
-        required
         icon={
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -89,8 +118,8 @@ export const RegisterForm = () => {
         placeholder="you@example.com"
         value={formData.email}
         onChange={handleChange}
+        onBlur={handleBlur}
         error={errors.email}
-        required
         icon={
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
@@ -105,8 +134,8 @@ export const RegisterForm = () => {
         placeholder="••••••••"
         value={formData.password}
         onChange={handleChange}
+        onBlur={handleBlur}
         error={errors.password}
-        required
         icon={
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -121,8 +150,8 @@ export const RegisterForm = () => {
         placeholder="••••••••"
         value={formData.confirmPassword}
         onChange={handleChange}
+        onBlur={handleBlur}
         error={errors.confirmPassword}
-        required
         icon={
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />

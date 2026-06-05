@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Card from 'src/components/common/Card';
 import Button from 'src/components/common/Button';
-import Modal from 'src/components/common/Modal';
+import ConfirmDialog from 'src/components/common/ConfirmDialog';
 import useModal from 'src/hooks/useModal';
 import { deleteAccount } from 'src/api/authApi';
 import { useToast } from 'src/hooks/useToast';
@@ -35,19 +35,16 @@ const DangerZone = ({ onAccountDeleted }) => {
         <Button onClick={open} variant="danger" size="sm">Delete Account</Button>
       </Card>
 
-      <Modal isOpen={isOpen} onClose={close} title="Confirm Account Deletion">
-        <div className="flex flex-col gap-4 py-2">
-          <p className="text-sm text-text-secondary leading-relaxed">
-            All history, scans, and heatmaps will be permanently removed. This is irreversible.
-          </p>
-          <div className="flex items-center gap-3 justify-end mt-4">
-            <Button onClick={close} variant="ghost" size="sm">Cancel</Button>
-            <Button onClick={handleDelete} isLoading={loading} variant="danger" size="sm">
-              Yes, Delete My Account
-            </Button>
-          </div>
-        </div>
-      </Modal>
+      <ConfirmDialog
+        isOpen={isOpen}
+        onClose={close}
+        onConfirm={handleDelete}
+        isLoading={loading}
+        title="Confirm Account Deletion"
+        description="Are you absolutely sure you want to delete your account? All scan history, images, and heatmaps will be permanently removed. This action is irreversible."
+        confirmText="Yes, Delete My Account"
+        variant="danger"
+      />
     </>
   );
 };

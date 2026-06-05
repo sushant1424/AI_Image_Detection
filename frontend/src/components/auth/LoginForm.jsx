@@ -17,13 +17,11 @@ export const LoginForm = () => {
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
-    
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
     }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -36,6 +34,25 @@ export const LoginForm = () => {
     }
   };
 
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    const val = formData[name];
+    setErrors((prev) => {
+      const copy = { ...prev };
+      if (name === 'email') {
+        if (!val) copy.email = 'Email address is required';
+        else if (!/\S+@\S+\.\S+/.test(val)) copy.email = 'Please enter a valid email address';
+        else delete copy.email;
+      }
+      if (name === 'password') {
+        if (!val) copy.password = 'Password is required';
+        else if (val.length < 6) copy.password = 'Password must be at least 6 characters';
+        else delete copy.password;
+      }
+      return copy;
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
@@ -43,7 +60,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5 w-full">
       <Input
         label="Email Address"
         type="email"
@@ -51,8 +68,8 @@ export const LoginForm = () => {
         placeholder="you@example.com"
         value={formData.email}
         onChange={handleChange}
+        onBlur={handleBlur}
         error={errors.email}
-        required
         icon={
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
@@ -67,8 +84,8 @@ export const LoginForm = () => {
         placeholder="••••••••"
         value={formData.password}
         onChange={handleChange}
+        onBlur={handleBlur}
         error={errors.password}
-        required
         icon={
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />

@@ -15,7 +15,7 @@ export const LandingPage = () => {
       {/* Hero Section */}
       <div className="flex flex-col items-center text-center max-w-3xl mx-auto my-auto pt-10 pb-16">
         {/* Sparkle Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs font-semibold mb-6 animate-fade-in shadow-sm">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs font-semibold mb-10 animate-fade-in shadow-sm">
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
           </svg>
@@ -23,13 +23,13 @@ export const LandingPage = () => {
         </div>
 
         {/* Headline */}
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight animate-slide-up">
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-[1.25] md:leading-[1.3] animate-slide-up">
           Can You Trust <br />
-          <span className="gradient-text glow-strong">What You See?</span>
+          <span className="gradient-text glow-strong mt-2 block md:inline">What You See?</span>
         </h1>
 
         {/* Subheading */}
-        <p className="text-lg md:text-xl text-text-secondary mb-10 max-w-2xl leading-relaxed animate-slide-up animation-delay-2000">
+        <p className="text-lg md:text-xl text-text-secondary mb-12 max-w-2xl leading-relaxed animate-slide-up animation-delay-2000">
           Instantly verify the authenticity of any image. Leverage state-of-the-art neural network analysis to spot AI generation and analyze heatmaps in seconds.
         </p>
 

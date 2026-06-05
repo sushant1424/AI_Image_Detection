@@ -5,6 +5,7 @@ import { logout } from 'src/store/authSlice';
 import { ROUTES } from 'src/constants';
 import Button from '../common/Button';
 import MobileMenu from './MobileMenu';
+import ConfirmDialog from '../common/ConfirmDialog';
 
 const NAV_LINKS = [
   { label: 'Detect', path: ROUTES.DETECT, public: true },
@@ -14,12 +15,18 @@ const NAV_LINKS = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
-  const handleLogout = () => { dispatch(logout()); navigate(ROUTES.HOME); };
+  const handleLogoutConfirm = () => {
+    setShowConfirm(false);
+    dispatch(logout());
+    navigate(ROUTES.HOME);
+  };
+
   const isActive = (path) => location.pathname === path;
 
   return (
@@ -60,7 +67,7 @@ export const Navbar = () => {
                   </div>
                   <span className="text-sm font-medium text-text">{user?.name}</span>
                 </Link>
-                <Button onClick={handleLogout} variant="ghost" size="sm">Logout</Button>
+                <Button onClick={() => setShowConfirm(true)} variant="ghost" size="sm">Logout</Button>
               </div>
             ) : (
               <>
@@ -82,7 +89,18 @@ export const Navbar = () => {
       </div>
 
       <MobileMenu isOpen={isOpen} navLinks={NAV_LINKS} isAuthenticated={isAuthenticated}
-        user={user} onClose={() => setIsOpen(false)} onLogout={handleLogout} />
+        user={user} onClose={() => setIsOpen(false)} onLogout={() => setShowConfirm(true)} />
+
+      {/* Logout Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={showConfirm}
+        onClose={() => setShowConfirm(false)}
+        onConfirm={handleLogoutConfirm}
+        title="Confirm Logout"
+        description="Are you sure you want to log out of your session? You will need to log back in to perform detection checks and audit histories."
+        confirmText="Logout"
+        variant="danger"
+      />
     </nav>
   );
 };
