@@ -6,6 +6,7 @@ import { ROUTES } from 'src/constants';
 import Button from '../common/Button';
 import MobileMenu from './MobileMenu';
 import ConfirmDialog from '../common/ConfirmDialog';
+import ThemeToggle from './ThemeToggle';
 
 const NAV_LINKS = [
   { label: 'Detect', path: ROUTES.DETECT, public: true },
@@ -57,8 +58,9 @@ export const Navbar = () => {
             })}
           </div>
 
-          {/* Desktop Auth */}
+          {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
+            <ThemeToggle />
             {isAuthenticated ? (
               <div className="flex items-center gap-4">
                 <Link to={ROUTES.PROFILE} className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-surface-light border border-transparent hover:border-border transition-all">
@@ -77,14 +79,17 @@ export const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Toggle */}
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-text-secondary hover:text-text p-2 rounded-lg hover:bg-surface-light transition-all" aria-label="Toggle menu">
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              {isOpen
-                ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
-            </svg>
-          </button>
+          {/* Mobile Actions */}
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <button onClick={() => setIsOpen(!isOpen)} className="text-text-secondary hover:text-text p-2 rounded-lg hover:bg-surface-light transition-all" aria-label="Toggle menu">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {isOpen
+                  ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 

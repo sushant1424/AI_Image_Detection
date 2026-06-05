@@ -20,6 +20,7 @@ import StatsPage from 'src/pages/StatsPage';
 import ProfilePage from 'src/pages/ProfilePage';
 import LoginPage from 'src/pages/LoginPage';
 import RegisterPage from 'src/pages/RegisterPage';
+import SharePage from 'src/pages/SharePage';
 import NotFoundPage from 'src/pages/NotFoundPage';
 
 function AppContent() {
@@ -51,6 +52,7 @@ function AppContent() {
         <Route path={ROUTES.DETECT} element={<DetectPage />} />
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
         <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+        <Route path="/share/:id" element={<SharePage />} />
 
         {/* Protected Routes */}
         <Route

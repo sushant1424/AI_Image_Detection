@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime, timezone
 import enum
 
-from sqlalchemy import Column, String, Float, DateTime, Enum, ForeignKey
+from sqlalchemy import Column, String, Float, DateTime, Enum, ForeignKey, JSON, Boolean
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
@@ -40,6 +40,9 @@ class Detection(Base):
         default=lambda: datetime.now(timezone.utc),
         nullable=False,
     )
+    metadata_info = Column("metadata", JSON, nullable=True) # Avoid overriding Python reserved keywords
+    feedback = Column(String(50), nullable=True) # 'thumbs_up' or 'thumbs_down'
+    is_public = Column(Boolean, default=True, nullable=False)
 
     # Relationship to user
     user = relationship("User", back_populates="detections")

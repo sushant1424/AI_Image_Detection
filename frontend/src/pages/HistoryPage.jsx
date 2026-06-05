@@ -6,8 +6,11 @@ import Modal from 'src/components/common/Modal';
 import ConfirmDialog from 'src/components/common/ConfirmDialog';
 import ResultCard from 'src/components/detection/ResultCard';
 import HeatmapViewer from 'src/components/detection/HeatmapViewer';
+import ForensicsInspector from 'src/components/detection/ForensicsInspector';
+import Button from 'src/components/common/Button';
 import useHistory from 'src/hooks/useHistory';
 import useModal from 'src/hooks/useModal';
+import { exportToCSV } from 'src/utils';
 
 export const HistoryPage = () => {
   const {
@@ -23,8 +26,6 @@ export const HistoryPage = () => {
 
   const { isOpen, open, close } = useModal();
   const [selectedItem, setSelectedItem] = useState(null);
-  
-  // Deletion confirmation state
   const [deleteId, setDeleteId] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -61,7 +62,21 @@ export const HistoryPage = () => {
               Review and audit all your past AI image detection results.
             </p>
           </div>
-          <HistoryFilter activeFilter={filter} onChange={changeFilter} />
+          <div className="flex flex-wrap items-center gap-3">
+            <HistoryFilter activeFilter={filter} onChange={changeFilter} />
+            <Button
+              onClick={() => exportToCSV(items)}
+              disabled={items.length === 0}
+              variant="ghost"
+              size="sm"
+              className="border border-border/80"
+            >
+              <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Export CSV
+            </Button>
+          </div>
         </div>
 
         {/* Paginated Grid */}
@@ -90,6 +105,9 @@ export const HistoryPage = () => {
                   originalUrl={selectedItem.original_image_url}
                   heatmapUrl={selectedItem.heatmap_image_url}
                 />
+              )}
+              {selectedItem.metadata && (
+                <ForensicsInspector metadata={selectedItem.metadata} />
               )}
             </div>
           )}

@@ -2,7 +2,7 @@
 # Detection Schemas — Pydantic validation
 # ========================================
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
 from uuid import UUID
 from typing import Optional
@@ -16,6 +16,9 @@ class DetectionResponse(BaseModel):
     original_image_url: str
     heatmap_image_url: Optional[str] = None
     created_at: datetime
+    metadata: Optional[dict] = None
+    feedback: Optional[str] = None
+    is_public: bool = True
 
     class Config:
         from_attributes = True
@@ -27,3 +30,13 @@ class DetectionListResponse(BaseModel):
     total: int
     page: int
     pages: int
+
+
+class URLDetectionRequest(BaseModel):
+    """Schema for requesting image detection via a public URL."""
+    url: str
+
+
+class FeedbackRequest(BaseModel):
+    """Schema for recording user feedback."""
+    feedback: str = Field(..., pattern="^(thumbs_up|thumbs_down)$")

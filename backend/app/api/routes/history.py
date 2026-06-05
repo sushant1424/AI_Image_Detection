@@ -37,6 +37,9 @@ async def get_history(
             original_image_url=item.original_image_path,
             heatmap_image_url=item.heatmap_image_path,
             created_at=item.created_at,
+            metadata=item.metadata_info,
+            feedback=item.feedback,
+            is_public=item.is_public,
         )
         for item in items
     ]
@@ -64,6 +67,9 @@ async def get_history_item(
         original_image_url=item.original_image_path,
         heatmap_image_url=item.heatmap_image_path,
         created_at=item.created_at,
+        metadata=item.metadata_info,
+        feedback=item.feedback,
+        is_public=item.is_public,
     )
 
 

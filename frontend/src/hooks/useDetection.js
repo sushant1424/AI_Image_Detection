@@ -8,7 +8,7 @@ import {
   setDetectionError,
   resetDetection,
 } from 'src/store/detectionSlice';
-import { analyzeImage } from 'src/api/detectionApi';
+import { analyzeImage, analyzeImageUrl } from 'src/api/detectionApi';
 
 export const useDetection = () => {
   const dispatch = useDispatch();
@@ -20,10 +20,8 @@ export const useDetection = () => {
 
   const selectImage = useCallback((file) => {
     if (!file) return;
-
-    // Local object URL for instant preview rendering
-    const previewUrl = URL.createObjectURL(file);
-    dispatch(setSelectedImage({ file, previewUrl }));
+    const preview = URL.createObjectURL(file);
+    dispatch(setSelectedImage({ file, previewUrl: preview }));
   }, [dispatch]);
 
   const analyze = useCallback(async () => {
@@ -44,8 +42,25 @@ export const useDetection = () => {
     }
   }, [dispatch, selectedImage, toast]);
 
+  const analyzeUrl = useCallback(async (url) => {
+    if (!url) {
+      toast.error('Please enter an image URL first');
+      return;
+    }
+
+    try {
+      dispatch(setDetectionLoading());
+      const data = await analyzeImageUrl(url);
+      dispatch(setDetectionResult(data));
+      toast.success('Analysis complete!');
+    } catch (err) {
+      const errMsg = err.response?.data?.detail || 'An error occurred during analysis';
+      dispatch(setDetectionError(errMsg));
+      toast.error(errMsg);
+    }
+  }, [dispatch, toast]);
+
   const reset = useCallback(() => {
-    // Revoke object URL to prevent memory leaks
     if (previewUrl) {
       URL.revokeObjectURL(previewUrl);
     }
@@ -60,6 +75,7 @@ export const useDetection = () => {
     error,
     selectImage,
     analyze,
+    analyzeUrl,
     reset,
   };
 };

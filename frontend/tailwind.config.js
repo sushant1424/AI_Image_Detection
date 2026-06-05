@@ -7,25 +7,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#0a0a0a',
+        background: 'var(--background)',
         surface: {
-          DEFAULT: '#111111',
-          light: '#1a1a1a',
+          DEFAULT: 'var(--surface)',
+          light: 'var(--surface-light)',
         },
         primary: {
-          DEFAULT: '#06b6d4',
-          hover: '#22d3ee',
-          dark: '#0891b2',
+          DEFAULT: 'var(--primary)',
+          hover: 'var(--primary-hover)',
+          dark: 'var(--primary-dark)',
         },
         text: {
-          DEFAULT: '#f5f5f5',
-          secondary: '#888888',
-          muted: '#555555',
+          DEFAULT: 'var(--text)',
+          secondary: 'var(--text-secondary)',
+          muted: 'var(--text-muted)',
         },
-        success: '#22c55e',
-        danger: '#ef4444',
-        warning: '#f59e0b',
-        border: '#2a2a2a',
+        success: 'var(--success)',
+        danger: 'var(--danger)',
+        warning: 'var(--warning)',
+        border: 'var(--border)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],

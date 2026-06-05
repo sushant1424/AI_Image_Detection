@@ -1,18 +1,17 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import PageWrapper from 'src/components/layout/PageWrapper';
 import DropZone from 'src/components/detection/DropZone';
 import ResultCard from 'src/components/detection/ResultCard';
 import HeatmapViewer from 'src/components/detection/HeatmapViewer';
+import ForensicsInspector from 'src/components/detection/ForensicsInspector';
+import AuthRequiredCard from 'src/components/detection/AuthRequiredCard';
 import Spinner from 'src/components/common/Spinner';
 import Button from 'src/components/common/Button';
-import Card from 'src/components/common/Card';
+import Input from 'src/components/common/Input';
 import useDetection from 'src/hooks/useDetection';
 import useAuth from 'src/hooks/useAuth';
-import { ROUTES } from 'src/constants';
 
 export const DetectPage = () => {
-  const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const {
     selectedImage,
@@ -22,66 +21,106 @@ export const DetectPage = () => {
     error,
     selectImage,
     analyze,
+    analyzeUrl,
     reset,
   } = useDetection();
 
+  const [activeTab, setActiveTab] = useState('file'); // 'file' | 'url'
+  const [urlInput, setUrlInput] = useState('');
+
+  const handleUrlAnalyze = () => {
+    if (!urlInput.trim()) return;
+    analyzeUrl(urlInput.trim());
+  };
+
+  const handleReset = () => {
+    setUrlInput('');
+    reset();
+  };
+
   return (
     <PageWrapper>
-      <div className="flex flex-col items-center gap-10">
+      <div className="flex flex-col items-center gap-8">
         {/* Header */}
         <div className="text-center max-w-2xl">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-text mb-3">
             Analyze Image
           </h1>
           <p className="text-text-secondary text-base">
-            Upload any image to detect if it was created by AI or is a genuine photograph.
+            Upload any image or paste a URL to detect if it was created by AI or is a genuine photograph.
           </p>
         </div>
 
-        {/* Unauthenticated State Alert */}
+        {/* Unauthenticated vs Authenticated inputs */}
         {!isAuthenticated ? (
-          <Card className="flex flex-col items-center text-center p-8 max-w-lg w-full gap-5 border-primary/20 bg-primary/5">
-            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-              <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-text mb-1">Authentication Required</h3>
-              <p className="text-xs text-text-secondary leading-relaxed">
-                To perform advanced neural network scanning and view heatmaps, you must first be logged in to your account.
-              </p>
-            </div>
-            <div className="flex gap-3 w-full">
-              <Button onClick={() => navigate(ROUTES.LOGIN)} className="flex-1">Sign In</Button>
-              <Button onClick={() => navigate(ROUTES.REGISTER)} variant="secondary" className="flex-1">Create Account</Button>
-            </div>
-          </Card>
+          <AuthRequiredCard />
         ) : (
           <>
-            {/* Upload Zone */}
-            {!result && (
-              <DropZone
-                onFileSelect={selectImage}
-                previewUrl={previewUrl}
-                selectedImage={selectedImage}
-              />
+            {/* Input Selection Tabs */}
+            {!result && !loading && (
+              <div className="flex gap-1.5 p-1 bg-surface-light rounded-xl border border-border">
+                <button
+                  onClick={() => setActiveTab('file')}
+                  className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${
+                    activeTab === 'file'
+                      ? 'bg-background text-primary shadow-xs'
+                      : 'text-text-secondary hover:text-text'
+                  }`}
+                >
+                  File Upload
+                </button>
+                <button
+                  onClick={() => setActiveTab('url')}
+                  className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${
+                    activeTab === 'url'
+                      ? 'bg-background text-primary shadow-xs'
+                      : 'text-text-secondary hover:text-text'
+                  }`}
+                >
+                  Image URL
+                </button>
+              </div>
             )}
 
-            {/* Action Buttons */}
-            {!result && selectedImage && (
-              <div className="flex items-center gap-4">
-                <Button onClick={analyze} isLoading={loading} size="lg" className="px-10">
-                  {loading ? 'Analyzing...' : 'Analyze Image'}
-                  {!loading && (
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  )}
-                </Button>
-                <Button onClick={reset} variant="ghost" size="lg">
-                  Clear
-                </Button>
+            {/* Input Options */}
+            {!result && !loading && (
+              <div className="w-full max-w-2xl flex flex-col items-center">
+                {activeTab === 'file' ? (
+                  <>
+                    <DropZone
+                      onFileSelect={selectImage}
+                      previewUrl={previewUrl}
+                      selectedImage={selectedImage}
+                    />
+                    {selectedImage && (
+                      <div className="flex items-center gap-4 mt-6">
+                        <Button onClick={analyze} size="lg" className="px-10">
+                          Analyze Image
+                        </Button>
+                        <Button onClick={handleReset} variant="ghost" size="lg">
+                          Clear
+                        </Button>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="w-full flex flex-col gap-4">
+                    <Input
+                      label="Paste Image URL"
+                      placeholder="https://example.com/some-fake-image.jpg"
+                      value={urlInput}
+                      onChange={(e) => setUrlInput(e.target.value)}
+                      icon={
+                        <svg className="w-5 h-5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                      }
+                    />
+                    <Button onClick={handleUrlAnalyze} disabled={!urlInput.trim()} size="lg" className="w-full">
+                      Fetch & Analyze Image
+                    </Button>
+                  </div>
+                )}
               </div>
             )}
 
@@ -96,33 +135,29 @@ export const DetectPage = () => {
             )}
 
             {/* Error State */}
-            {error && (
+            {error && !loading && (
               <div className="text-center py-6">
                 <p className="text-danger text-sm font-medium mb-4">{error}</p>
-                <Button onClick={reset} variant="secondary" size="sm">
+                <Button onClick={handleReset} variant="secondary" size="sm">
                   Try Again
                 </Button>
               </div>
             )}
 
             {/* Results */}
-            {result && (
+            {result && !loading && (
               <div className="flex flex-col items-center gap-8 w-full">
                 <ResultCard result={result} />
-
-                {/* Heatmap Visualization */}
                 {result.heatmap_image_url && (
                   <HeatmapViewer
                     originalUrl={result.original_image_url}
                     heatmapUrl={result.heatmap_image_url}
                   />
                 )}
-
-                {/* Scan Again */}
-                <Button onClick={reset} variant="secondary" size="lg" className="mt-4">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
+                {result.metadata && (
+                  <ForensicsInspector metadata={result.metadata} />
+                )}
+                <Button onClick={handleReset} variant="secondary" size="lg" className="mt-4">
                   Scan Another Image
                 </Button>
               </div>
